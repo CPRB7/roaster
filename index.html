@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#121212">
+    <meta name="description" content="Your resume. Six hours. No mercy.">
+    <title>RESUME ROAST</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <canvas class="network-web" aria-hidden="true"></canvas>
+    <div class="cursor-light" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#live" aria-label="Resume Roast home">
+        <span class="brand-mark">R</span>
+        <span>RESUME <b>ROAST</b></span>
+      </a>
+      <div class="topbar-right">
+        <span class="demo-tag"><i></i> BACKEND CONNECTED</span>
+        <span class="auth-user" id="auth-user" hidden></span>
+        <button class="button button-outline button-small" id="auth-button" type="button">Sign in</button>
+        <button class="button button-pink button-small" type="button" data-view="upload">Got the guts? Roast me <span aria-hidden="true">↗</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="view active" id="live-view" aria-labelledby="page-title">
+        <div class="live-heading wrap">
+          <div>
+            <p class="eyebrow"><span class="live-dot"></span> ONE RESUME. EVERYONE'S WATCHING.</p>
+            <h1 id="page-title">Your resume.<br><span>Six hours. No mercy.</span></h1>
+          </div>
+          <div class="timer" aria-live="polite">
+            <span class="timer-label">SELF-DESTRUCTS IN</span>
+            <strong id="countdown">05:59:59</strong>
+            <span class="timer-foot">then it's gone for real</span>
+          </div>
+        </div>
+
+        <div class="live-layout wrap">
+          <div class="resume-column">
+            <div class="resume-meta">
+              <span class="live-pill"><i></i> LIVE RIGHT NOW</span>
+              <span class="meta-label">LIVE RESUME <span class="meta-separator">/</span> <span id="live-label">WAITING FOR NEXT RESUME</span></span>
+            </div>
+            <article class="resume-paper" aria-label="Sample redacted resume">
+              <img class="live-resume-image" id="live-resume-image" alt="Redacted resume currently open for reactions" hidden>
+              <div class="paper-topline"><span>RR / 001</span><span>THE INTERNET IS YOUR RECRUITER</span></div>
+              <div class="paper-header">
+                <div>
+                  <div class="redaction redaction-name"></div>
+                  <p class="paper-role">SOFTWARE ENGINEER <span>·</span> NEW GRAD</p>
+                </div>
+                <div class="redaction redaction-contact"></div>
+              </div>
+              <div class="paper-rule"></div>
+              <section class="resume-section">
+                <h2>EXPERIENCE</h2>
+                <div class="resume-entry">
+                  <div class="entry-heading"><strong>Software Engineering Intern</strong><span>SUMMER 2025</span></div>
+                  <div class="redaction redaction-company"></div>
+                  <p>Built an internal dashboard used by 12 teams to track launch readiness.</p>
+                  <p>Cut a recurring report from 3 hours to 12 minutes with a small Python job.</p>
+                </div>
+                <div class="resume-entry">
+                  <div class="entry-heading"><strong>Web Developer</strong><span>2024 — 2025</span></div>
+                  <div class="redaction redaction-company short"></div>
+                  <p>Shipped accessible checkout updates; improved completion by 8%.</p>
+                </div>
+              </section>
+              <section class="resume-section">
+                <h2>PROJECTS</h2>
+                <div class="resume-entry">
+                  <div class="entry-heading"><strong>Campus Eats</strong><span>REACT · POSTGRES</span></div>
+                  <p>Made a tiny app for finding the dining hall's last decent cookie.</p>
+                </div>
+              </section>
+              <section class="resume-section resume-bottom">
+                <h2>EDUCATION</h2>
+                <div class="entry-heading"><strong>Computer Science, B.S.</strong><span>CLASS OF 2026</span></div>
+                <div class="redaction redaction-school"></div>
+              </section>
+              <div class="paper-stamp" aria-hidden="true">JUDGE<br>ME</div>
+            </article>
+            <div class="resume-actions">
+              <button class="text-button" id="report-button" type="button">⚑ Report this one</button>
+              <button class="text-button" id="share-button" type="button">↗ Share the live one</button>
+            </div>
+          </div>
+
+          <aside class="verdict-panel">
+            <div class="verdict-top"><span class="eyebrow">THE PEOPLE'S VERDICT</span><span class="live-counter"><i></i> LIVE COUNTS</span></div>
+            <p class="vote-prompt" id="vote-prompt">Pick a lane. Counts unlock in the final 30 minutes.</p>
+            <div class="reaction-buttons" role="group" aria-label="Choose your reaction">
+              <button class="reaction reaction-shit" type="button" data-reaction="shit"><span class="reaction-emoji">💀</span><span><b>SH*T</b><small>needs a miracle</small></span><span class="reaction-arrow">↗</span></button>
+              <button class="reaction reaction-mid" type="button" data-reaction="mid"><span class="reaction-emoji">😐</span><span><b>NOT-SH*T</b><small>fine, I guess</small></span><span class="reaction-arrow">↗</span></button>
+              <button class="reaction reaction-respect" type="button" data-reaction="respect"><span class="reaction-emoji">🫡</span><span><b>RESPECT++</b><small>okay, go off</small></span><span class="reaction-arrow">↗</span></button>
+            </div>
+            <div class="results hidden" id="results" aria-live="polite">
+              <div class="results-heading"><span>THE SPLIT</span><span id="vote-total">0 votes</span></div>
+              <div class="bar-stack" id="bar-stack"></div>
+              <p class="vote-message" id="vote-message"></p>
+            </div>
+            <div class="vote-lock-note" id="vote-lock-note"><span>↳</span> One vote per person. Choose wisely-ish.</div>
+            <div class="panel-divider"></div>
+            <div class="queue-note"><span class="queue-icon">✳</span><p><strong>Only one resume at a time.</strong><br>When this one vanishes, the next brave soul goes live.</p></div>
+          </aside>
+        </div>
+
+        <section class="idle-cta wrap">
+          <span class="idle-star" aria-hidden="true">✳</span>
+          <div><p class="eyebrow">THINK YOU CAN TAKE IT?</p><h2>Nobody's brave enough right now.<br><span>Feeling reckless?</span></h2></div>
+          <button class="button button-lime" type="button" data-view="upload">Got the guts? Roast me <span aria-hidden="true">↗</span></button>
+        </section>
+      </section>
+
+      <section class="view upload-view" id="upload-view" aria-labelledby="upload-title" hidden>
+        <div class="upload-wrap">
+          <button class="back-button" type="button" data-view="live">← Back to the carnage</button>
+          <div class="upload-head">
+            <p class="eyebrow">YOUR TURN, MAIN CHARACTER</p>
+            <h1 id="upload-title">Put your resume<br><span>on the hot seat.</span></h1>
+            <div class="step-track" aria-label="Upload steps"><span class="step-dot current"></span><span class="step-line"></span><span class="step-dot"></span><span class="step-line"></span><span class="step-dot"></span><span class="step-line"></span><span class="step-dot"></span></div>
+          </div>
+
+          <div class="upload-card" id="upload-card">
+            <section class="wizard-step active" data-step="dare">
+              <div class="step-kicker">01 <span>/</span> THE DARE</div>
+              <h2>This goes fully public.<br><span>Still in?</span></h2>
+              <p class="step-copy">This goes public for 6 hours straight. Anyone can view it; sign-in may be required to upload, react, or report. Nobody's holding your hand. You in?</p>
+              <div class="dare-facts"><div><b>6 HOURS</b><small>then hard deleted</small></div><div><b id="login-fact">NO LOGIN</b><small id="login-fact-detail">required only if safety mode is enabled</small></div><div><b>YOUR CALL</b><small>redact before posting</small></div></div>
+              <div class="step-actions"><button class="button button-pink" type="button" data-next="pick">I can take it <span>↗</span></button><button class="button button-outline" type="button" data-view="live">Nah, I'm out</button></div>
+            </section>
+
+            <section class="wizard-step" data-step="pick">
+              <div class="step-kicker">02 <span>/</span> PICK YOUR FILE</div>
+              <h2>One resume.<br><span>One shot.</span></h2>
+              <p class="step-copy">Choose a redacted image of your resume. It will be uploaded to the private queue and only shown publicly during its six-hour live window.</p>
+              <label class="drop-zone" id="drop-zone" for="resume-file"><span class="upload-icon">↑</span><strong>Drop an image here or <u>browse files</u></strong><small>PNG, JPG or WebP · max 12 MB</small><input id="resume-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+              <p class="form-error" id="file-error" role="alert"></p>
+              <div class="step-actions"><button class="button button-outline" type="button" data-prev="dare">← Back</button></div>
+            </section>
+
+            <section class="wizard-step" data-step="redact">
+              <div class="step-kicker">03 <span>/</span> REDACT THE EVIDENCE</div>
+              <h2>Black out your<br><span>identifying bits.</span></h2>
+              <p class="step-copy">Black out anything you don't want the whole campus staring at. Click and drag across the image to cover it.</p>
+              <div class="canvas-toolbar"><span id="canvas-filename">YOUR RESUME</span><button class="text-button" id="clear-redactions" type="button">↺ Clear marks</button></div>
+              <div class="canvas-frame"><canvas id="redact-canvas" aria-label="Resume image. Click and drag to add black redactions."></canvas></div>
+              <p class="canvas-hint">DRAG TO DRAW A BLACKOUT <span>·</span> Your original stays on this device</p>
+              <div class="step-actions"><button class="button button-outline" type="button" data-prev="pick">← Change file</button><button class="button button-pink" type="button" data-next="checklist">Looks good <span>↗</span></button></div>
+            </section>
+
+            <section class="wizard-step" data-step="checklist">
+              <div class="step-kicker">04 <span>/</span> LAST HONESTY CHECK</div>
+              <h2>One last look.<br><span>No do-overs.</span></h2>
+              <p class="step-copy">Last honesty check before this goes live:</p>
+              <div class="checklist-layout"><div class="check-preview"><canvas id="preview-canvas"></canvas><span>WHAT YOU'RE POSTING</span></div><div class="checklist" id="checklist"><label><input type="checkbox"><span>Blacked out my name and photo (if any)</span></label><label><input type="checkbox"><span>Blacked out my email, phone, and home address</span></label><label><input type="checkbox"><span>Blacked out links, social handles, and QR codes</span></label><label><input type="checkbox"><span>Checked school, employer, dates, and other clues that identify me</span></label><label><input type="checkbox"><span>Previewed the exact image I am posting; it contains no pages or details I want private</span></label><label><input type="checkbox"><span>I understand this goes public for 6 hours and I can't undo it once it's live</span></label></div></div>
+              <div class="step-actions"><button class="button button-outline" type="button" data-prev="redact">← Redact more</button><button class="button button-pink" id="checklist-next" type="button" data-next="details" disabled>All checked <span>↗</span></button></div>
+            </section>
+
+            <section class="wizard-step" data-step="details">
+              <div class="step-kicker">05 <span>/</span> THE LITTLE DETAILS</div>
+              <h2>Give it a label.<br><span>Or don't.</span></h2>
+              <label class="field-label" for="resume-label">WHAT ARE YOU GOING FOR? <span>OPTIONAL · 40 CHARACTERS</span></label>
+              <input class="text-input" id="resume-label" type="text" maxlength="40" placeholder="SWE Intern hopeful">
+              <p class="warning-note hidden" id="label-warning">Heads up: that looks like contact info. Keep it anonymous, yeah?</p>
+              <div class="step-actions"><button class="button button-outline" type="button" data-prev="checklist">← Back</button><button class="button button-pink" type="button" data-next="perks">Next <span>↗</span></button></div>
+            </section>
+
+            <section class="wizard-step" data-step="perks">
+              <div class="step-kicker">06 <span>/</span> TOTALLY OPTIONAL</div>
+              <h2>Want the<br><span>aftermath?</span></h2>
+              <p class="step-copy">No account is needed right now. If sign-in is enabled later, accounts will be required to upload, react, or report, with one upload allowed every 30 days.</p>
+              <div class="step-actions step-actions-stack"><button class="button button-lime" id="post-button" type="button">Post anonymously <span>↗</span></button><button class="button button-outline" type="button" data-prev="details">← Back</button></div>
+            </section>
+
+            <section class="wizard-step done-step" data-step="done">
+              <div class="done-burst" aria-hidden="true">✳</div>
+              <div class="step-kicker">YOU'RE IN</div>
+              <h2>Resume received.<br><span>Now breathe.</span></h2>
+              <p class="step-copy" id="upload-confirmation">Your redacted resume was added to the queue. It will be public for six hours when its turn starts.</p>
+              <canvas id="done-canvas"></canvas>
+              <button class="button button-pink" type="button" data-view="live">Back to the roast <span>↗</span></button>
+            </section>
+          </div>
+          <p class="upload-footnote">Your redacted image is stored privately until its six-hour live window ends. <a href="#live" data-view="live">Back to the live roast</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>NO ARCHIVE. NO LEADERBOARD. YOU HAD TO BE THERE.</span></footer>
+
+    <dialog id="report-dialog" class="report-dialog">
+      <form method="dialog" id="report-form">
+        <button class="dialog-close" aria-label="Close report dialog" value="cancel">×</button>
+        <p class="eyebrow">KEEP IT SOMEWHAT CIVIL</p><h2>What's the deal?</h2>
+        <label><input type="radio" name="reason" value="not-resume" required> Not a resume</label>
+        <label><input type="radio" name="reason" value="hate"> Contains slurs / hate</label>
+        <label><input type="radio" name="reason" value="private-info"> Someone else's info</label>
+        <label><input type="radio" name="reason" value="other"> Other</label>
+        <button class="button button-pink button-small" id="send-report" value="submit">Send report</button>
+      </form>
+    </dialog>
+    <dialog id="auth-dialog" class="report-dialog">
+      <form id="auth-form">
+        <button class="dialog-close" id="auth-close" type="button" aria-label="Close sign in dialog">×</button>
+        <p class="eyebrow">YOUR ACCOUNT</p>
+        <h2 id="auth-title">Sign in</h2>
+        <p class="auth-copy" id="auth-copy">Sign in to upload, react, or report.</p>
+        <label class="field-label" for="auth-email">EMAIL</label>
+        <input class="text-input" id="auth-email" type="email" maxlength="254" autocomplete="email" required>
+        <label class="field-label" for="auth-password">PASSWORD <span>12–128 CHARACTERS</span></label>
+        <input class="text-input" id="auth-password" type="password" minlength="12" maxlength="128" autocomplete="current-password" required>
+        <p class="form-error" id="auth-error" role="alert"></p>
+        <button class="button button-lime" id="auth-submit" type="submit">Sign in</button>
+        <button class="button button-outline auth-google" id="auth-google" type="button" hidden>Continue with Google</button>
+        <button class="text-button" id="auth-mode-toggle" type="button">Create an account</button>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
